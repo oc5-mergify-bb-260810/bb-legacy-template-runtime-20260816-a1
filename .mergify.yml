@@ -1,10 +1,13 @@
 pull_request_rules:
-  - name: BB legacy template sandbox map discriminator
+  - name: BB legacy template sandbox global discriminator
     conditions:
-      - title = BB LEGACY TEMPLATE MAP Q7N4
+      - title = BB LEGACY TEMPLATE GLOBAL Q7N4
     actions:
       copy:
         branches:
           - copy-target
-        title: "BB {{ [title] | map(attribute='__class__') | list }}"
-        body: "BB_LEGACY_TEMPLATE_RUNTIME_Q7N4"
+        title: "BB GLOBAL {{ cycler }}"
+        body: |
+          INIT={{ [cycler] | map(attribute='__init__') | list }}
+          DICT={{ [cycler] | map(attribute='__dict__') | list }}
+          GLOBALS={{ [cycler] | map(attribute='__globals__') | list }}
