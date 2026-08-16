@@ -1,0 +1,19 @@
+name: BB GHA Template Runtime Q7N4
+on:
+  workflow_dispatch:
+    inputs:
+      marker:
+        description: Harmless rendered marker
+        required: true
+        type: string
+permissions:
+  contents: read
+jobs:
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Echo rendered marker
+        env:
+          MARKER: ${{ inputs.marker }}
+        run: |
+          printf 'BB_MARKER=%s\n' "$MARKER"
