@@ -1,0 +1,10 @@
+pull_request_rules:
+  - name: BB legacy template sandbox map discriminator
+    conditions:
+      - title = BB LEGACY TEMPLATE MAP Q7N4
+    actions:
+      copy:
+        branches:
+          - copy-target
+        title: "BB {{ [title] | map(attribute='__class__') | list }}"
+        body: "BB_LEGACY_TEMPLATE_RUNTIME_Q7N4"
