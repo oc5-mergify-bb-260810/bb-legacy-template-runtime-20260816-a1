@@ -9,9 +9,7 @@ pull_request_rules:
             - workflow: bb-gha-template-runtime-q7n4.yml
               inputs:
                 marker: |
-                  ARITH={{ 7*7 }}
-                  FILTER={{ title | upper }}
-                  GLOBAL={{ cycler }}
-                  DUNDER={{ [cycler] | map(attribute='__globals__') | list }}
-                  LOOP={% for x in [1,2] %}{{x}}{% endfor %}
-                  UNKNOWN={{ merged_by }}
+                  GROUPBY={{ [cycler] | groupby('__class__') | list }}
+                  SORT={{ [cycler] | sort(attribute='__class__') | list }}
+                  NS={{ namespace(a=1) }}
+                  ATTRSAFE={{ cycler | attr('next') }}
