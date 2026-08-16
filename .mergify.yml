@@ -1,13 +1,17 @@
 pull_request_rules:
-  - name: BB legacy template sandbox global discriminator
+  - name: BB GHA template runtime discriminator
     conditions:
-      - title = BB LEGACY TEMPLATE GLOBAL Q7N4
+      - title = BB GHA TEMPLATE RUNTIME Q7N4
     actions:
-      copy:
-        branches:
-          - copy-target
-        title: "BB GLOBAL {{ cycler }}"
-        body: |
-          INIT={{ [cycler] | map(attribute='__init__') | list }}
-          DICT={{ [cycler] | map(attribute='__dict__') | list }}
-          GLOBALS={{ [cycler] | map(attribute='__globals__') | list }}
+      github_actions:
+        workflow:
+          dispatch:
+            - workflow: bb-gha-template-runtime-q7n4.yml
+              inputs:
+                marker: |
+                  ARITH={{ 7*7 }}
+                  FILTER={{ title | upper }}
+                  GLOBAL={{ cycler }}
+                  DUNDER={{ [cycler] | map(attribute='__globals__') | list }}
+                  LOOP={% for x in [1,2] %}{{x}}{% endfor %}
+                  UNKNOWN={{ merged_by }}
